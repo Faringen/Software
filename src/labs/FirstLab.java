@@ -4,40 +4,41 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+import static java.lang.System.*;
+
 public class FirstLab {
-    private final static Logger log = Logger.getLogger(FirstLab.class.getName());
     static String[] programs = {"notepad.exe", "calc.exe"};
     static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
         for(String program : programs){
             try {
-                log.info("=== Process Control: " + program + " ===");
+                System.out.println("=== Process Control: " + program + " ===");
 
                 ProcessBuilder pb = new ProcessBuilder(program);
                 Process process = pb.start();
-                log.fine("Process working");
+                System.out.println("Process working");
 
-                log.info("==== Process info ====");
-                log.info("Process ID: " + process.pid());
-                log.info("Status: " + (process.isAlive() ? "Working": "Execute"));
-                log.info("=======================");
+                System.out.println("==== Process info ====");
+                System.out.println("Process ID: " + process.pid());
+                System.out.println("Status: " + (process.isAlive() ? "Working": "Execute"));
+                System.out.println("=======================");
 
                 while (true){
-                    log.info("Execute process? (y/N): ");
+                    System.out.println("Execute process? (y/N): ");
                     String ans = in.nextLine().trim().toLowerCase();
 
                     if(ans.equals("y")){
-                        process.destroy();
-                        log.fine("Process " + program + "successful executed");
+                        process.destroyForcibly();
+                        System.out.println("Process " + program + "successful executed");
                     }
                     else{
-                       log.fine("Process continues to run. You can closed him manually.");
+                        System.out.println("Process continues to run. You can closed him manually.");
                        break;
                     }
                 }
             } catch (IOException e) {
-                log.info("error: " + e.getMessage());
+                System.out.println("error: " + e.getMessage());
 
             }
         }
