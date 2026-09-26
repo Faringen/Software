@@ -5,7 +5,6 @@ public class AnimalThread extends Thread {
     private final String animalName;
     private int distance = 0;
 
-    // Статический флаг, чтобы определить, кто победил первым в первой части задания
     public static volatile boolean winnerDeclared = false;
 
     public AnimalThread(String name, int priority) {
