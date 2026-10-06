@@ -16,7 +16,6 @@ public class MaxProduct {
                 if (scanner.hasNextInt()) {
                     arr[i] = scanner.nextInt();
                 } else {
-                    System.err.println("Предупреждение: В файле меньше 1000 чисел!");
                     break;
                 }
             }
@@ -40,3 +39,6 @@ public class MaxProduct {
         }
     }
 }
+
+
+
