@@ -9,8 +9,8 @@ public class AnimalThread extends Thread {
 
     public AnimalThread(String name, int priority) {
         this.animalName = name;
-        this.setName(name);
-        this.setPriority(priority);
+        setName(name);
+        setPriority(priority);
     }
 
     public int getDistance() {
@@ -36,7 +36,7 @@ public class AnimalThread extends Thread {
         synchronized (AnimalThread.class) {
             if (!winnerDeclared) {
                 winnerDeclared = true;
-                System.out.println(animalName + " ПОБЕДИЛ в первом забеге!");
+                System.out.println(animalName + " победил в первом забеге!");
             }
         }
     }

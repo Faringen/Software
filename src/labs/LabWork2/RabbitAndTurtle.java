@@ -2,7 +2,7 @@ package labs.LabWork2;
 
 public class RabbitAndTurtle {
     public static void main(String[] args) throws InterruptedException {
-        System.out.println("=== ЧАСТЬ 1: Обычные догонялки ===");
+        System.out.println("=== Часть 1: Обычные догонялки ===");
 
         AnimalThread rabbit = new AnimalThread("Кролик", Thread.MAX_PRIORITY);
         AnimalThread turtle = new AnimalThread("Черепаха", Thread.MIN_PRIORITY);
@@ -13,12 +13,12 @@ public class RabbitAndTurtle {
         rabbit.join();
         turtle.join();
 
-        System.out.println("\n=== ЧАСТЬ 2: Динамическое изменение приоритетов ===");
+        System.out.println("\n=== Часть 2: Динамическое изменение приоритетов ===");
 
         AnimalThread.winnerDeclared = false;
 
-        AnimalThread fastRabbit = new AnimalThread("Динамический кролик", Thread.MAX_PRIORITY);
-        AnimalThread slowTurtle = new AnimalThread("Динамическая черепаха", Thread.MIN_PRIORITY);
+        AnimalThread fastRabbit = new AnimalThread("Динамический кролик", 5);
+        AnimalThread slowTurtle = new AnimalThread("Динамическая черепаха", 5);
 
         fastRabbit.start();
         slowTurtle.start();
@@ -45,7 +45,7 @@ public class RabbitAndTurtle {
                 }
             }
 
-            Thread.sleep(15);
+            Thread.sleep(20);
         }
 
         fastRabbit.join();
