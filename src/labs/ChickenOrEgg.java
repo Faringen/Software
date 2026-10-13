@@ -1,45 +1,60 @@
 package labs;
 
 public class ChickenOrEgg {
-    private static String endWord = "";
 
-    static void main() throws InterruptedException {
+    private static final Object lock = new Object();
+    private static boolean isChickenTurn = true;
+    private static String lastWord = "Спор не начался";
+
+    static void main()  {
+        int integration = 10;
         Thread chicken = new Thread(() ->{
-            for (int i = 0; i < 5; i++) {
-                System.out.println("Курица");
-                endWord = "Курица";
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+            for (int i = 0; i < integration; i++) {
+                synchronized (lock){
+                    while (!isChickenTurn){
+                        try {
+                            lock.wait(10);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    System.out.println("Chicken");
+                    lastWord = "Chicken";
+
+                    isChickenTurn = false;
+                    lock.notify();
                 }
             }
         });
 
-        Thread egg = new Thread(() ->{
-            for (int i = 0; i < 5; i++) {
-                System.out.println("Яйцо");
-                endWord = "Яйцо";
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+        Thread egg = new Thread(()->{
+            for (int i = 0; i < integration; i++) {
+                synchronized (lock){
+                    try {
+                        lock.wait(10);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    System.out.println("Egg");
+                    lastWord = "egg";
+
+                    isChickenTurn = true;
+                    lock.notify();
                 }
             }
         });
-        System.out.println("Что было раньше: курица или яйцо?");
 
         chicken.start();
         egg.start();
 
-        chicken.join();
-        egg.join();
+        try {
+            chicken.join();
+            egg.join();
+        }catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-        System.out.println("Остановка процессов.");
-        System.out.println();
-        System.out.println("Процесс chicken живой? " + chicken.isAlive());
-        System.out.println("Процесс egg живой? " + egg.isAlive());
-        System.out.println("Итог спора: " + endWord);
-
+        System.out.println("Last Word " + lastWord );
     }
 }
