@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SolutionLab3 {
     static void main(String[] args) {
-        String file = "/home/faringen/IdeaProjects/Software/src/resource/numbersForSolutionLab3.txt";
+        String file = "D:\\Code\\IDEA Project\\Software\\src\\resource\\numbersForSolutionLab3.txt";
         List<Integer> numList = new ArrayList<>();
 
         try(BufferedReader br = new BufferedReader(new FileReader(file))) {
